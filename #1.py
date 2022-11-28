@@ -1,4 +1,5 @@
 from itertools import *
+import copy
 def find_comb(amount_couriers):
     a = ''
     combinations = []
@@ -60,34 +61,29 @@ coriers_kolvo = int(input('Введите количество курьеров:
 combinations = find_comb(coriers_kolvo)
 for combination in combinations:
     print(combination)
-    zakazi = []
-    kurieri = []
-    for i in zakazi_0:
-        a = i
-        zakazi.append(a)
-    for i in kurieri_0:
-        a = i
-        kurieri.append(a)
-    print(zakazi[1].x, zakazi[1].y)
-    print(zakazi_0[1].x, zakazi_0[1].y)
+    zakazi = copy.deepcopy(zakazi_0)
+    kurieri = copy.deepcopy(kurieri_0)
     dictance = 0
     distance_with_center = 0
-    sum_rasstoyaniy_itog = 0
+    rasstoyaniy_itog = []
+    courier_zakaz = {}
     for courier in combination:
         courier1 = kurieri[int(courier)] #курьеру присваиваю классовое значения из списка
         cz = [] #массив расстояний
-        for zakaz in zakazi:
+        for zakaz in zakazi: # прохожу по каждому заказу из списка
             distance = courier1.get_distance(zakaz)
             distance_with_center = distance + zakaz.get_distance_to_center()
-            cz.append(distance_with_center)
-        min_dictance = min(cz)
+            cz.append(distance_with_center) # записываю в массив расстояние курьер-заказ-начало координат
+        cnt = 0
         for zakaz in zakazi:
             distance = courier1.get_distance(zakaz)
             distance_with_center = distance + zakaz.get_distance_to_center()
             if min(cz) == distance_with_center:
-                sum_rasstoyaniy_itog += min(cz)
+                courier_zakaz[min(cz)] = int(courier), cnt
+                rasstoyaniy_itog.append(min(cz))
                 zakaz.x = 99999
                 zakaz.y = 99999
-        print(cz)
+            cnt += 1
+for i in courier_zakaz:
+    print(f"Курьер № {courier_zakaz[i][0]+1} заберет {courier_zakaz[i][1]+1} заказ.")
 
-print (sum_rasstoyaniy_itog)
