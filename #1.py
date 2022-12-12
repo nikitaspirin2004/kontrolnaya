@@ -28,9 +28,11 @@ class Point:
 
 
 class Couriers:
-    def __init__(self, x, y):
+    def __init__(self,name, x, y, bag):
+        self.name = name
         self.x = x
         self.y = y
+        self.bag = bag
 
     def get_distance(self, other_point):
         x1 = self.x
@@ -43,6 +45,10 @@ class Couriers:
     def get_distance_to_center(self):
         r = Point(0, 0)
         return self.get_distance(r)
+class Record:
+    def __init__(self, name: str, from_point: Point,to_point: Point,time_start, time_finish):
+
+
 
 '''заказы'''
 z1 = Point(5,0)
@@ -86,4 +92,3 @@ for combination in combinations:
             cnt += 1
 for i in courier_zakaz:
     print(f"Курьер № {courier_zakaz[i][0]+1} заберет {courier_zakaz[i][1]+1} заказ.")
-
